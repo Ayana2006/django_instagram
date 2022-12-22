@@ -69,6 +69,7 @@ body{
 .acc-logo{
     width: 145px;
     height: 145px;
+    border-radius: 50%;
 }
 .info_el{
     display: flex;

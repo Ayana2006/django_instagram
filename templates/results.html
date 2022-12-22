@@ -1,4 +1,4 @@
-{%load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,15 +11,15 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-   {%include 'include/header.html'%}
+    {%include 'include/header.html'%}
     <div class=" simple_padding album py-5 bg-light">
         <div class="container">
     
-          <div style="display: flex; justify-content:center;" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          <div style="display: flex; justify-content:center;align-items: center;" class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-3">
             {% for post in posts %}
-            <div class="col-8">
+            <div class="col-4" >
               <div class="card shadow-sm">
-                <img class="bd-placeholder-img card-img-top" width="100%" height="50%" src="{{post.image.url}}" role="img" ow as a natural aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img>
+                <img class="bd-placeholder-img card-img-top"  style="align-items:center; width:inherit; height:300px;" width="100%" height="50%" src="{{post.image.url}}" role="img" ow as a natural aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img>
                 <div class="card-body">
                   <h3>{{post.title}}</h3>
                   <p class="card-text " style="width: 500px; margin: 15px 0;">{{post.description}}</p>
@@ -27,11 +27,11 @@
                     <div class="btn-group">
                       <form method="POST">
                         {% csrf_token %}
-                        <input name="post" value="{{post.id}}" type="hidden">
-                        <button type="submit" name="like" class="btn btn-sm btn-outline-secondary">{{post.post_like.count}}like</button>
+                        <input name="post" type="hidden" value="{{post.id}}" >
+                        <button type="submit" name="like" class="btn btn-sm btn-outline-secondary">{{post.post_like.count}} Like</button>
                       </form>
-                      <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{%url 'single_post' post.id %}">{{post.post_comment.count}}Комментариев</a></button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'account' post.user.id%}">@{{post.user.username}}</a></button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'single_post' post.id %}"> {{post.post_comment.count}} Комментариев</a></button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'account' post.user.id %}">@{{post.user.username}}</a></button>
                     </div>
                     <small class="text-muted">{{post.created}}</small>
                   </div>
@@ -39,6 +39,19 @@
               </div>
             </div>
             {% endfor %}
+
+            {% for user in users %}
+            <div class="col-4" >
+              <div class="card shadow-sm">
+                <img class="bd-placeholder-img card-img-top"  style="align-items:center; width:inherit; height:300px;" width="100%" height="50%" src="{{user.profile_image.url}}" role="img" ow as a natural aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></img>
+                <div class="card-body">
+                  <a href="{% url 'account' user.id%}"><h3>{{user.username}}</h3></a>
+                  <p class="card-text " style="width: 500px; margin: 15px 0;">{{user.description}}</p>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
           </div>
         </div>
       </div>
@@ -55,7 +68,7 @@
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                       <li class="nav-item">
-                        <a class="nav-link" href="#">My account</a>
+                        <a class="nav-link" href="#">Мой аккаунт</a>
                       </li>
                     </ul>
                   </div>
